@@ -1,5 +1,6 @@
 import streamlit as st
 from helper_functions.utility import check_password
+from helper_functions.ui import apply_theme, page_header, footer
 
 # region <--------- Streamlit Page Configuration --------->
 
@@ -8,6 +9,7 @@ st.set_page_config(
     page_title="About",
     page_icon="ℹ️",
 )
+apply_theme()
 
 # Do not continue if check_password is not True.
 if not check_password():
@@ -15,25 +17,31 @@ if not check_password():
 
 # endregion <--------- Streamlit Page Configuration --------->
 
-st.title("ℹ️ About This App")
+page_header("About This App", "What this assistant does, how it works, and its limits.", "ℹ️")
 
-st.write("""
-This is an AI Chatbot built with **Streamlit** and **OpenAI**.
+st.markdown("""
+### What it does
+This assistant helps people understand the **divorce process at the Syariah Court Singapore**:
+eligibility, counselling, filing, fees, reconciliation, appeals and life after divorce.
 
-### Features
-- 💬 **Conversational AI** — Chat naturally with GPT-4o-mini
-- 🔒 **Password Protected** — Secure access with a shared password
-- 🔄 **Streaming Responses** — See the AI's reply as it's generated
-- 📊 **Token Tracking** — Monitor estimated token usage in the sidebar
+### How it works
+- 📄 **Grounded answers (RAG)**: each question is matched to the most relevant pages of the official
+  Syariah Court divorce guide, and the AI answers only from those pages, citing page numbers.
+- 💬 **Conversational**: ask follow-up questions in plain language.
+- 🔒 **Password protected**: access with a shared password.
 
-### Tech Stack
+### Tech stack
 | Component | Tool |
 |---|---|
-| UI Framework | [Streamlit](https://streamlit.io/) |
-| Language Model | [OpenAI GPT-4o-mini](https://openai.com/) |
-| Token Counting | [tiktoken](https://github.com/openai/tiktoken) |
-| Backend | Python 3.10+ |
+| Interface | Streamlit |
+| Language model | OpenAI GPT-4o-mini |
+| Retrieval | OpenAI text-embedding-3-small + NumPy |
+| PDF reading | pypdf |
 
-### Disclaimer
-*This application is for educational and demonstration purposes. The information provided by the AI should not be taken as professional advice.*
+### Limits
+- It only knows what is in the guide. If the answer isn't there, it will say so.
+- It gives **general information, not legal advice**. Court staff can't give legal advice either,
+  so speak to a lawyer, the Legal Aid Bureau or Pro Bono SG about your own case.
 """)
+
+footer()

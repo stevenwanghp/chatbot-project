@@ -18,6 +18,8 @@ def check_password():
         return True
 
     # Show input for password.
+    from helper_functions.ui import page_header
+    page_header("Welcome", "Please enter the access password to continue.", "🔒")
     st.text_input(
         "Password", type="password", on_change=password_entered, key="password"
     )

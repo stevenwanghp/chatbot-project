@@ -1,0 +1,15 @@
+# Colours taken from syariahcourt.gov.sg (maroon #810E07, navy #223780, Lato font)
+[theme]
+base = "light"
+primaryColor = "#810E07"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F3F2"
+textColor = "#323232"
+linkColor = "#223780"
+borderColor = "#E6DEDC"
+font = "Lato:https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"
+baseRadius = "0.6rem"
+showWidgetBorder = true
+
+[theme.sidebar]
+backgroundColor = "#F7F3F2"

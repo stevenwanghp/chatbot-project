@@ -2,14 +2,16 @@ import streamlit as st
 from helper_functions.llm import get_completion_stream, count_tokens
 from helper_functions.utility import check_password
 from helper_functions.rag import build_system_prompt
+from helper_functions.ui import apply_theme, page_header, footer
 
 # region <--------- Streamlit Page Configuration --------->
 
 st.set_page_config(
     layout="centered",
-    page_title="Chatbot",
+    page_title="Ask the Assistant",
     page_icon="💬",
 )
+apply_theme()
 
 # Do not continue if check_password is not True.
 if not check_password():
@@ -17,49 +19,87 @@ if not check_password():
 
 # endregion <--------- Streamlit Page Configuration --------->
 
-st.title("💬 AI Chatbot")
+USER_AVATAR = "🙂"
+BOT_AVATAR = "⚖️"
+DEFAULT_PROMPT = (
+    "You are a friendly, professional assistant that helps people understand the divorce "
+    "process at the Syariah Court Singapore. Be warm and respectful: the user may be going "
+    "through a difficult time. Use plain English, short paragraphs and bullet points for steps."
+)
+SUGGESTIONS = [
+    "Who can apply for divorce at the Syariah Court?",
+    "What is the Marriage Counselling Programme?",
+    "How long do I have to serve the Originating Summons?",
+    "Can we still reconcile after talak?",
+]
+
+page_header(
+    "Ask the Assistant",
+    "Ask anything about the divorce process. Answers are drawn from the official Syariah Court guide.",
+    "💬",
+)
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.header("⚙️ Settings")
-    system_prompt = st.text_area(
-        "System Prompt",
-        value="You are a friendly assistant that helps people understand the divorce process at the Syariah Court Singapore.",
-        height=120,
-    )
-    if st.button("🗑️ Clear Conversation"):
+    st.markdown("### 💬 Conversation")
+    if st.button("🗑️ New conversation", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
 
     if st.session_state.get("messages"):
-        total_tokens = sum(
-            count_tokens(m["content"]) for m in st.session_state.messages
-        )
-        st.metric("Estimated Tokens Used", total_tokens)
+        total_tokens = sum(count_tokens(m["content"]) for m in st.session_state.messages)
+        st.metric("Estimated tokens used", total_tokens)
+
+    with st.expander("⚙️ Advanced settings"):
+        system_prompt = st.text_area("System prompt", value=DEFAULT_PROMPT, height=160)
+
+    st.caption("Need to speak to someone? Syariah Court: **6354 8371**")
 
 # ── Chat history ──────────────────────────────────────────────────────────────
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+pending = None
+
+if not st.session_state.messages:
+    with st.chat_message("assistant", avatar=BOT_AVATAR):
+        st.markdown(
+            "**Assalamualaikum and welcome.** I can explain eligibility, counselling, filing, "
+            "fees, reconciliation, appeals and what happens after a divorce.\n\n"
+            "Pick a question below or type your own."
+        )
+    cols = st.columns(2)
+    for i, q in enumerate(SUGGESTIONS):
+        if cols[i % 2].button(q, key=f"suggest_{i}", use_container_width=True):
+            pending = q
+
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+    avatar = USER_AVATAR if message["role"] == "user" else BOT_AVATAR
+    with st.chat_message(message["role"], avatar=avatar):
+        st.markdown(message["content"])
 
 # ── Chat input ────────────────────────────────────────────────────────────────
-if user_input := st.chat_input("Type your message here..."):
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user"):
-        st.write(user_input)
+user_input = st.chat_input("Type your question here...") or pending
 
-    with st.chat_message("assistant"):
+if user_input:
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user", avatar=USER_AVATAR):
+        st.markdown(user_input)
+
+    with st.chat_message("assistant", avatar=BOT_AVATAR):
         # RAG: find the most relevant parts of the guide and add them to the system prompt
-        rag_prompt, sources = build_system_prompt(user_input, system_prompt)
+        with st.spinner("Checking the Syariah Court guide..."):
+            rag_prompt, sources = build_system_prompt(user_input, system_prompt)
         full_messages = [{"role": "system", "content": rag_prompt}] + st.session_state.messages
         response = st.write_stream(get_completion_stream(full_messages))
 
         with st.expander("📄 Sources used from the guide"):
             for s in sources:
-                st.markdown(f"**Page {s['page']}** (relevance {s['score']:.2f})")
+                st.markdown(f"**Page {s['page']}** · relevance {s['score']:.2f}")
                 st.caption(s["text"][:300] + "...")
 
     st.session_state.messages.append({"role": "assistant", "content": response})
+    if pending:
+        st.rerun()  # hide the suggestion buttons once a question has been asked
+
+footer()

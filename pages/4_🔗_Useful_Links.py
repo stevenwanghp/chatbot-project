@@ -1,5 +1,6 @@
 import streamlit as st
 from helper_functions.utility import check_password
+from helper_functions.ui import apply_theme, page_header, footer
 
 # region <--------- Streamlit Page Configuration --------->
 
@@ -8,6 +9,7 @@ st.set_page_config(
     page_title="Useful Links",
     page_icon="🔗",
 )
+apply_theme()
 
 # Do not continue if check_password is not True.
 if not check_password():
@@ -15,12 +17,12 @@ if not check_password():
 
 # endregion <--------- Streamlit Page Configuration --------->
 
-st.title("🔗 Useful Links")
-st.write(
+page_header(
+    "Useful Links",
     "Official resources and support services for people navigating divorce through "
-    "the Syariah Court in Singapore."
+    "the Syariah Court in Singapore.",
+    "🔗",
 )
-st.info("General information only — this page is not legal advice.")
 
 useful_links = [
     {
@@ -85,7 +87,23 @@ useful_links = [
     },
 ]
 
-for index, link in enumerate(useful_links, start=1):
-    st.markdown(f"### {index}. [{link['title']}]({link['url']})")
-    st.write(link["description"])
-    st.caption(f"Best for: {link['best_for']}")
+# Filter by audience
+audiences = sorted({link["best_for"] for link in useful_links})
+choice = st.pills("Show links for", ["All"] + audiences, default="All")
+shown = [l for l in useful_links if choice in (None, "All") or l["best_for"] == choice]
+
+# Two-column card grid
+cols = st.columns(2)
+for index, link in enumerate(shown):
+    with cols[index % 2]:
+        with st.container(border=True):
+            st.markdown(f"**{link['title']}**")
+            st.write(link["description"])
+            st.markdown(
+                f"<span style='background:#F3F5FB;color:#223780;padding:2px 10px;"
+                f"border-radius:999px;font-size:.75rem;font-weight:700'>{link['best_for']}</span>",
+                unsafe_allow_html=True,
+            )
+            st.link_button("Open site ↗", link["url"], use_container_width=True)
+
+footer()

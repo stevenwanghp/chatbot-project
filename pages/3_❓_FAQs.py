@@ -1,5 +1,6 @@
 import streamlit as st
 from helper_functions.utility import check_password
+from helper_functions.ui import apply_theme, page_header, footer, note
 
 # region <--------- Streamlit Page Configuration --------->
 
@@ -8,6 +9,7 @@ st.set_page_config(
     page_title="FAQs",
     page_icon="❓",
 )
+apply_theme()
 
 # Do not continue if check_password is not True.
 if not check_password():
@@ -15,11 +17,9 @@ if not check_password():
 
 # endregion <--------- Streamlit Page Configuration --------->
 
-"""
-FAQ page content - Syariah Court divorce chatbot site.
-Source: syariahcourt.gov.sg (checked 5 Nov 2026) plus linked government sites.
-General information only - not legal advice.
-"""
+# FAQ page content - Syariah Court divorce chatbot site.
+# Source: syariahcourt.gov.sg (checked 5 Nov 2026) plus linked government sites.
+# General information only - not legal advice.
 
 DISCLAIMER = (
     "This page gives general information about divorce at the Syariah Court Singapore. "
@@ -250,11 +250,17 @@ FAQS = [
     },
 ]
 
-st.title("❓ Frequently Asked Questions")
-st.caption(DISCLAIMER)
+page_header(
+    "Frequently Asked Questions",
+    "The 20 questions people ask most, from eligibility to life after divorce.",
+    "❓",
+)
+note(DISCLAIMER)
 
 for category in dict.fromkeys(faq["category"] for faq in FAQS):
     st.subheader(category)
     for faq in (item for item in FAQS if item["category"] == category):
         with st.expander(faq["question"]):
             st.write(faq["answer"])
+
+footer()
