@@ -1,24 +1,15 @@
+"""
+Entry point. Defines the sidebar menu (names, icons and order).
+Streamlit Cloud runs this file, so keep the name main.py.
+"""
 import streamlit as st
-from helper_functions.utility import check_password
 
-# region <--------- Streamlit Page Configuration --------->
+pages = [
+    st.Page("home.py", title="Home", icon="🏠", default=True),
+    st.Page("pages/1_💬_Chatbot.py", title="Ask the Assistant", icon="💬"),
+    st.Page("pages/3_❓_FAQs.py", title="FAQs", icon="❓"),
+    st.Page("pages/4_🔗_Useful_Links.py", title="Useful Links", icon="🔗"),
+    st.Page("pages/2_ℹ️_About.py", title="About", icon="ℹ️"),
+]
 
-st.set_page_config(
-    layout="centered",
-    page_title="AI Chatbot",
-    page_icon="🤖",
-)
-
-# Do not continue if check_password is not True.
-if not check_password():
-    st.stop()
-
-# endregion <--------- Streamlit Page Configuration --------->
-
-st.title("🤖 AI Chatbot")
-st.write("""
-Welcome to the AI Chatbot! Navigate using the **sidebar** to explore:
-
-- 💬 **Chatbot** — Have a conversation with the AI assistant
-- ℹ️ **About** — Learn more about this app
-""")
+st.navigation(pages).run()
