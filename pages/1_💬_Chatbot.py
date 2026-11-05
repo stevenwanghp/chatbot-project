@@ -1,6 +1,7 @@
 import streamlit as st
 from helper_functions.llm import get_completion_stream, count_tokens
 from helper_functions.utility import check_password
+from helper_functions.rag import build_system_prompt
 
 # region <--------- Streamlit Page Configuration --------->
 
@@ -23,7 +24,7 @@ with st.sidebar:
     st.header("⚙️ Settings")
     system_prompt = st.text_area(
         "System Prompt",
-        value="You are a helpful assistant.",
+        value="You are a friendly assistant that helps people understand the divorce process at the Syariah Court Singapore.",
         height=120,
     )
     if st.button("🗑️ Clear Conversation"):
@@ -51,7 +52,14 @@ if user_input := st.chat_input("Type your message here..."):
         st.write(user_input)
 
     with st.chat_message("assistant"):
-        full_messages = [{"role": "system", "content": system_prompt}] + st.session_state.messages
+        # RAG: find the most relevant parts of the guide and add them to the system prompt
+        rag_prompt, sources = build_system_prompt(user_input, system_prompt)
+        full_messages = [{"role": "system", "content": rag_prompt}] + st.session_state.messages
         response = st.write_stream(get_completion_stream(full_messages))
+
+        with st.expander("📄 Sources used from the guide"):
+            for s in sources:
+                st.markdown(f"**Page {s['page']}** (relevance {s['score']:.2f})")
+                st.caption(s["text"][:300] + "...")
 
     st.session_state.messages.append({"role": "assistant", "content": response})
