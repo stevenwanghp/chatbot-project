@@ -32,22 +32,24 @@ DISCLAIMER = (
 FAQS = [
     # --- Eligibility ---
     {
-        "category": "Eligibility",
-        "question": "Who can apply for divorce at the Syariah Court?",
+                "category": "Eligibility",
+        "question": "Am I eligible to file for divorce at the Syariah Court?",
         "answer": (
-            "You can apply if both you and your spouse are Muslims, or if you were married "
-            "under Muslim law. Other couples file at the Family Justice Courts."
+            "You may apply for divorce at the Syariah Court if you and your spouse are Muslims, "
+            "or were married under Muslim law, AND either of you:\n\n"
+            "- is a Singapore citizen; or\n"
+            "- has lived in Singapore for at least 3 continuous years before applying; or\n"
+            "- is domiciled in Singapore (Singapore is the country you treat as your permanent "
+            "home, or have a substantial connection with)."
         ),
     },
     {
         "category": "Eligibility",
-        "question": "Is there a residency requirement?",
+        "question": "Neither of us is a Singapore citizen. What do we need to show?",
         "answer": (
-            "Yes. At least one of you must be a Singapore citizen, OR have lived in Singapore "
-            "for at least 3 continuous years before applying, OR be domiciled in Singapore "
-            "(treat Singapore as your permanent home). If neither of you is a citizen, you must "
-            "show proof of residence for the 3 years before applying, e.g. an employment pass, "
-            "employment agreement or tenancy agreement."
+            "You must show proof of residence in Singapore for the 3 years before your application, "
+            "for example an employment pass showing your length of stay, an employment agreement, "
+            "or a tenancy agreement."
         ),
     },
     # --- Before filing ---
@@ -57,8 +59,7 @@ FAQS = [
         "answer": (
             "Register for the compulsory Marriage Counselling Programme (MCP) online on the "
             "SYC Portal (eservices.syariahcourt.gov.sg). You must attend the MCP before you can "
-            "file for divorce. You can choose up to three of the five court-appointed agencies and "
-            "book a session with one that has an available slot: AMP Singapore, APKIM Resources, "
+            "file for divorce. MCP agencies include: AMP Singapore, APKIM Resources, "
             "Darul Arqam (Muslim Converts' Association of Singapore), Persatuan Pemudi Islam "
             "Singapura, or Reach Community Services Singapore."
         ),
@@ -71,17 +72,6 @@ FAQS = [
             "makes attending impractical or impossible. Apply in the 'Exemption from Counselling' "
             "section of your registration and attach proof, such as a letter from a registered "
             "medical practitioner dated no more than one month before you submit."
-        ),
-    },
-    {
-        "category": "Before Filing",
-        "question": "We have children. Is there anything extra we must do?",
-        "answer": (
-            "Yes. If you proceed with the divorce and have at least one child below 21, you and "
-            "your spouse will go through a Parenting Programme with your counsellor. If you agree "
-            "on the arrangements, you both sign the Agreed Parenting Plan before filing, and your "
-            "spouse must affirm their signature before a Commissioner for Oaths. If you do not "
-            "agree, the person filing (the Plaintiff) submits a Proposed Parenting Plan instead."
         ),
     },
     {
@@ -106,20 +96,6 @@ FAQS = [
     },
     {
         "category": "Process",
-        "question": "What documents do I need to file?",
-        "answer": (
-            "1) The Originating Summons, issued by the Court. "
-            "2) A Case Statement, an e-form on the SYC Portal with supporting documents. "
-            "3) A Parenting Plan (agreed or proposed) if you have a child under 21. "
-            "4) A Matrimonial Property Plan (agreed or proposed) plus Particulars of Housing "
-            "Arrangement if an HDB flat is a matrimonial asset. "
-            "The original marriage certificate must also be surrendered to the Court. "
-            "The Ministry of Law's free eBantu tool explains how to fill in the Case Statement "
-            "and Memorandum of Defence."
-        ),
-    },
-    {
-        "category": "Process",
         "question": "How do I serve the divorce papers on my spouse?",
         "answer": (
             "You must serve the Originating Summons within 12 months of your filing being accepted. "
@@ -135,7 +111,7 @@ FAQS = [
         "category": "Process",
         "question": "I have been served divorce papers. What do I do?",
         "answer": (
-            "Acknowledge receipt and file a Memorandum of Defence on the SYC Portal within 21 days "
+            "You are now known as the Defendant. Acknowledge receipt and file a Memorandum of Defence on the SYC Portal within 21 days "
             "of being served. In it you say whether you agree to the divorce and the proposed "
             "arrangements, or give your own proposals."
         ),
@@ -175,51 +151,19 @@ FAQS = [
             "disputes, the Court may order a free, confidential Custody Evaluation Report."
         ),
     },
-    {
-        "category": "Process",
-        "question": "When will I get my divorce certificate?",
-        "answer": (
-            "It depends on the type of divorce. For talak where the wife's iddah has not expired on "
-            "the date of the Decree, it is available 3 months and 10 days after the Decree. Where "
-            "the iddah has expired, and for talak ba'in and fasakh, it is available within 7 working "
-            "days. Download it from the SYC Portal under 'Court File': under 'Court Orders' for "
-            "divorces registered before 18 November 2022, or 'Court Documents' for those registered "
-            "after 1 December 2022. If you have a lawyer, it is made available to your lawyer."
-        ),
-    },
-    # --- Fees ---
-    {
-        "category": "Fees",
-        "question": "How much does a divorce at the Syariah Court cost?",
-        "answer": (
-            "The Court's estimated maximum fees are about $87 for filing the Originating Summons "
-            "(Plaintiff) and about $42 for filing a Memorandum of Defence (Defendant). Registration "
-            "of the divorce is $100, and each filed document is $12. If hakam are appointed, each "
-            "party pays $150 plus $22 for the Order of Court. Fees are paid on the SYC Portal by "
-            "PayNow or eNETS/credit card. Lawyer's fees are separate. If you cannot afford a "
-            "lawyer, check whether you qualify for help from the Legal Aid Bureau."
-        ),
-    },
     # --- Reconciliation ---
     {
         "category": "Reconciliation",
         "question": "My husband pronounced talak outside court but we want to reconcile. What should we do?",
         "answer": (
             "Both of you must attend in person at the Syariah Court within 7 days of the talak "
-            "pronouncement. The Court will decide whether the out-of-court divorce is valid. After "
-            "the decree or order is issued, both of you attend in person at the Registry of Muslim "
+            "pronouncement. The Court will decide whether the out-of-court divorce is valid. You"
+            "will still need to file for a divoce. After the decree or order is issued, 
+            "both of you attend in person at the Registry of Muslim "
             "Marriages (ROMM) to register the revocation of the divorce (rujuk)."
         ),
     },
     {
-        "category": "Reconciliation",
-        "question": "Can I stop the divorce process if we decide to work things out?",
-        "answer": (
-            "Yes. If you decide not to go ahead with the divorce, you can close your case at the "
-            "MCP stage. If a consent order has already been made and you wish to reconcile (rujuk), "
-            "you can apply to the Court to rescind it."
-        ),
-    },
     # --- Appeals ---
     {
         "category": "Appeals",
@@ -232,34 +176,7 @@ FAQS = [
             "within 3 days of filing. Get legal advice on whether your appeal has merit."
         ),
     },
-    # --- After divorce ---
-    {
-        "category": "After Divorce",
-        "question": "My ex-spouse is not following the court order. What can I do?",
-        "answer": (
-            "Breaches of Syariah Court orders are enforced at the Family Justice Courts. For "
-            "maintenance, nafkah iddah and mutaah, you apply under section 53(1) of the "
-            "Administration of Muslim Law Act. For orders on custody and access, emas kahwin and "
-            "marriage expenses, or the division of property, you can file a Magistrate's Complaint "
-            "under section 53(2) in person at the Family Registry (no fee). If the order allows the "
-            "Court to sign property documents for a party who refuses, file a Praecipe (Request) "
-            "on the SYC Portal. Seek legal advice before taking these steps."
-        ),
-    },
-    {
-        "category": "After Divorce",
-        "question": "Can a court order be changed later?",
-        "answer": (
-            "Yes, if there is a material change in circumstances. Applications to vary a Syariah "
-            "Court order must be made at the Syariah Court, not the Family Justice Courts. File a "
-            "summons with a supporting affidavit on the SYC Portal, then serve it on your ex-spouse "
-            "by personal service, registered post or substituted service. Service through the "
-            "portal is not allowed. The Court will then fix a mediation or Pre-Trial Conference. "
-            "Fees are estimated at up to about $69."
-        ),
-    },
-]
-
+        
 page_header(
     "Frequently Asked Questions",
     "Common questions about the Syariah Court divorce process, from eligibility to life after divorce.",
