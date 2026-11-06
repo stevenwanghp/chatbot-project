@@ -72,6 +72,7 @@ useful_links = [
         "url": "https://www.probono.sg/",
         "description": "Free basic legal advice from volunteer lawyers.",
         "best_for": "Anyone needing legal help",
+    },
 ]
 
 # Filter by audience
@@ -91,6 +92,6 @@ for index, link in enumerate(shown):
                 f"border-radius:999px;font-size:.75rem;font-weight:700'>{link['best_for']}</span>",
                 unsafe_allow_html=True,
             )
-            st.link_button("Open site ↗", link["url"], use_container_width=True)
+            st.link_button("Open site ↗", link["url"])
 
 footer()
