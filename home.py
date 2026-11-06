@@ -30,7 +30,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     with st.container(border=True):
         st.markdown("#### 💬 Ask a question")
-        st.write("Chat with our assistant. Answers come from the official Syariah Court divorce guide.")
+        st.write("Chat with our assistant. Answers come from the official Syariah Court website and divorce guide.")
         st.page_link("pages/1_💬_Chatbot.py", label="Start chatting →")
 with col2:
     with st.container(border=True):
@@ -42,15 +42,37 @@ with col3:
         st.markdown("#### 🔗 Resources")
         st.write("Official forms, the SYC Portal, legal aid and support services.")
         st.page_link("pages/4_🔗_Useful_Links.py", label="See resources →")
-
 st.markdown("### The process at a glance")
+
+# Steps everyone goes through
 steps = [
     ("1", "Counselling", "Register on the SYC Portal and attend the Marriage Counselling Programme."),
-    ("2", "File", "One spouse files the Originating Summons within 6 months."),
-    ("3", "Serve & respond", "Serve the papers; the spouse replies within 21 days."),
-    ("4", "Mediation", "Try to agree on the divorce and ancillary matters."),
-    ("5", "Decision", "If there's no agreement, the Court hears and decides the case."),
+    ("2", "File the Originating Summons", "One spouse files the Originating Summons within 6 months."),
+    ("3", "Serve the Originating Summons", "[Add description]"),
+    ("4", "Spouse files the Memorandum of Defence", "[Add description]"),
+    ("5", "Mediation", "Helps both parties agree on the divorce and ancillary matters."),
 ]
+
+for number, title, description in steps:
+    st.markdown(f"**{number}. {title}**  \n{description}")
+
+# After mediation, the process splits into two paths
+st.markdown("**6. After mediation**")
+agree, no_agree = st.columns(2)
+
+with agree:
+    st.success(
+        "✅ **If you reach an agreement**\n\n"
+        "➡️ **Consent Hearing**: the Court reviews your agreement and grants the divorce."
+    )
+
+with no_agree:
+    st.warning(
+        "❌ **If you don't reach an agreement**\n\n"
+        "➡️ **Pre-Trial Conference**\n\n"
+        "➡️ **Hearing**: the Court hears the case and decides."
+    )
+
 cols = st.columns(len(steps))
 for col, (num, title, text) in zip(cols, steps):
     with col:
