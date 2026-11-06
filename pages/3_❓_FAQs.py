@@ -52,10 +52,7 @@ FAQS = [
         "answer": (
             "Register for the compulsory Marriage Counselling Programme (MCP) online on the "
             "SYC Portal (eservices.syariahcourt.gov.sg). You must attend the MCP before you can "
-            "file for divorce. You can choose up to three of the five court-appointed agencies and "
-            "book a session with one that has an available slot: AMP Singapore, APKIM Resources, "
-            "Darul Arqam (Muslim Converts' Association of Singapore), Persatuan Pemudi Islam "
-            "Singapura, or Reach Community Services Singapore."
+            "file for divorce."
         ),
     },
     {
@@ -63,9 +60,7 @@ FAQS = [
         "question": "Can I be exempted from the Marriage Counselling Programme?",
         "answer": (
             "Possibly, if a critical or terminal illness, or a physical disability or infirmity, "
-            "makes attending impractical or impossible. Apply in the 'Exemption from Counselling' "
-            "section of your registration and attach proof, such as a letter from a registered "
-            "medical practitioner dated no more than one month before you submit."
+            "makes attending impractical or impossible."
         ),
     },
     {
@@ -73,10 +68,7 @@ FAQS = [
         "question": "We have children. Is there anything extra we must do?",
         "answer": (
             "Yes. If you proceed with the divorce and have at least one child below 21, you and "
-            "your spouse will go through a Parenting Programme with your counsellor. If you agree "
-            "on the arrangements, you both sign the Agreed Parenting Plan before filing, and your "
-            "spouse must affirm their signature before a Commissioner for Oaths. If you do not "
-            "agree, the person filing (the Plaintiff) submits a Proposed Parenting Plan instead."
+            "your spouse will go through a Parenting Programme with your counsellor."
         ),
     },
     {
@@ -93,9 +85,9 @@ FAQS = [
         "category": "Process",
         "question": "When must I file for divorce after counselling?",
         "answer": (
-            "You must file the divorce application (the Originating Summons) within 6 months of "
+            "You must file the divorce application (i.e. the Originating Summons) within 6 months of "
             "the date of the issuance email ('Pre-OS Email') you receive after completing the MCP. "
-            "You file online through the SYC Portal. The person filing is the Plaintiff and the "
+            "File for the divorce online through the SYC Portal. The person filing is the Plaintiff and the "
             "spouse is the Defendant."
         ),
     },
@@ -105,25 +97,11 @@ FAQS = [
         "answer": (
             "1) The Originating Summons, issued by the Court.\n\n"
             "2) A Case Statement, an e-form on the SYC Portal with supporting documents.\n\n"
-            "3) A Parenting Plan (agreed or proposed) if you have a child under 21.\n\n"
+            "3) A Parenting Plan (agreed or proposed) if you have child(ren) under 21.\n\n"
             "4) A Matrimonial Property Plan (agreed or proposed) plus Particulars of Housing "
             "Arrangement if an HDB flat is a matrimonial asset.\n\n"
-            "The original marriage certificate must also be surrendered to the Court. "
             "The Ministry of Law's free eBantu tool explains how to fill in the Case Statement "
             "and Memorandum of Defence."
-        ),
-    },
-    {
-        "category": "Process",
-        "question": "How do I serve the divorce papers on my spouse?",
-        "answer": (
-            "You must serve the Originating Summons within 12 months of your filing being accepted. "
-            "Options: through the SYC Portal (only if you have your spouse's valid email address); "
-            "personal service by a Court Process Server, a solicitor or an authorised solicitor's "
-            "clerk; or registered post, with your spouse signing and returning an Acknowledgement "
-            "of Service. If these fail or are not possible, apply to the Court for substituted "
-            "service by filing a summons with a supporting affidavit. Do not carry out substituted "
-            "service until the Court has made an order."
         ),
     },
     {
@@ -141,7 +119,7 @@ FAQS = [
         "answer": (
             "A mediator meets both of you to see whether you can agree on the divorce and the "
             "ancillary matters (such as nafkah iddah, mutaah, children and property). Each session "
-            "lasts 60 minutes, and more sessions can be scheduled. If you have a lawyer, you must "
+            "lasts up to 60 minutes, and more sessions can be scheduled. If you have a lawyer, you must "
             "attend with them. If you reach agreement, and the agreement and required documents "
             "are filed and accepted by the Court, a President of the Court may hear and decide the "
             "divorce on the same day. If you do not agree, the case goes to a Pre-Trial Conference."
@@ -182,19 +160,6 @@ FAQS = [
             "after 1 December 2022. If you have a lawyer, it is made available to your lawyer."
         ),
     },
-    # --- Fees ---
-    {
-        "category": "Fees",
-        "question": "How much does a divorce at the Syariah Court cost?",
-        "answer": (
-            "The Court's estimated maximum fees are about $87 for filing the Originating Summons "
-            "(Plaintiff) and about $42 for filing a Memorandum of Defence (Defendant). Registration "
-            "of the divorce is $100, and each filed document is $12. If hakam are appointed, each "
-            "party pays $150 plus $22 for the Order of Court. Fees are paid on the SYC Portal by "
-            "PayNow or eNETS/credit card. Lawyer's fees are separate. If you cannot afford a "
-            "lawyer, check whether you qualify for help from the Legal Aid Bureau."
-        ),
-    },
     # --- Reconciliation ---
     {
         "category": "Reconciliation",
@@ -206,15 +171,7 @@ FAQS = [
             "Marriages (ROMM) to register the revocation of the divorce (rujuk)."
         ),
     },
-    {
-        "category": "Reconciliation",
-        "question": "Can I stop the divorce process if we decide to work things out?",
-        "answer": (
-            "Yes. If you decide not to go ahead with the divorce, you can close your case at the "
-            "MCP stage. If a consent order has already been made and you wish to reconcile (rujuk), "
-            "you can apply to the Court to rescind it."
-        ),
-    },
+  
     # --- Appeals ---
     {
         "category": "Appeals",
@@ -227,34 +184,7 @@ FAQS = [
             "within 3 days of filing. Get legal advice on whether your appeal has merit."
         ),
     },
-    # --- After divorce ---
-    {
-        "category": "After Divorce",
-        "question": "My ex-spouse is not following the court order. What can I do?",
-        "answer": (
-            "Breaches of Syariah Court orders are enforced at the Family Justice Courts. For "
-            "maintenance, nafkah iddah and mutaah, you apply under section 53(1) of the "
-            "Administration of Muslim Law Act. For orders on custody and access, emas kahwin and "
-            "marriage expenses, or the division of property, you can file a Magistrate's Complaint "
-            "under section 53(2) in person at the Family Registry (no fee). If the order allows the "
-            "Court to sign property documents for a party who refuses, file a Praecipe (Request) "
-            "on the SYC Portal. Seek legal advice before taking these steps."
-        ),
-    },
-    {
-        "category": "After Divorce",
-        "question": "Can a court order be changed later?",
-        "answer": (
-            "Yes, if there is a material change in circumstances. Applications to vary a Syariah "
-            "Court order must be made at the Syariah Court, not the Family Justice Courts. File a "
-            "summons with a supporting affidavit on the SYC Portal, then serve it on your ex-spouse "
-            "by personal service, registered post or substituted service. Service through the "
-            "portal is not allowed. The Court will then fix a mediation or Pre-Trial Conference. "
-            "Fees are estimated at up to about $69."
-        ),
-    },
-]
-
+   
 page_header(
     "Frequently Asked Questions",
     "Common questions about the Syariah Court divorce process, from eligibility to life after divorce.",
