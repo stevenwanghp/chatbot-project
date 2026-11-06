@@ -72,19 +72,6 @@ useful_links = [
         "url": "https://www.probono.sg/",
         "description": "Free basic legal advice from volunteer lawyers.",
         "best_for": "Anyone needing legal help",
-    },
-    {
-        "title": "Syariah Court - Support Programmes",
-        "url": "https://syariahcourt.gov.sg/Divorce/Support-Programmes",
-        "description": "Free counselling at FAM centres, Children-in-Between workshops, supervised visitation and online counselling.",
-        "best_for": "Helping someone / families with children",
-    },
-    {
-        "title": "CPF - Division of CPF Assets in a Divorce",
-        "url": "https://www.cpf.gov.sg/member/account-services/undergoing-a-divorce/division-of-cpf-assets",
-        "description": "How CPF savings and CPF-funded property are divided after a divorce order.",
-        "best_for": "Going through / after divorce",
-    },
 ]
 
 # Filter by audience
