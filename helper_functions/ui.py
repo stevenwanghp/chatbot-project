@@ -11,10 +11,19 @@ Usage on each page, right after st.set_page_config(...):
 """
 import streamlit as st
 
+# ── Colours ───────────────────────────────────────────────────────────────────
 MAROON = "#810E07"
 MAROON_DARK = "#5A0904"
 NAVY = "#223780"
 CHARCOAL = "#323232"
+
+# ── Font sizes (change these to resize text on EVERY page) ────────────────────
+TEXT_SIZE = "1rem"          # normal text, lists, FAQ answers, chat messages
+SMALL_SIZE = ".85rem"       # captions, notes, footer, step descriptions
+H1_SIZE = "1.9rem"          # page title in the maroon banner
+H2_SIZE = "1.5rem"          # st.header / ## headings
+H3_SIZE = "1.25rem"         # st.subheader / ### headings
+H4_SIZE = "1.1rem"          # #### headings (e.g. card titles)
 
 _CSS = f"""
 <style>
@@ -26,6 +35,17 @@ html, body, [class*="css"], .stMarkdown, .stChatMessage {{ font-family: 'Lato', 
 #MainMenu, footer {{ visibility: hidden; }}
 .block-container {{ padding-top: 2rem; max-width: 860px; }}
 
+/* ── Standard font sizes ── */
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stChatMessage"] p {{ font-size: {TEXT_SIZE} !important; line-height: 1.6; }}
+h1 {{ font-size: {H1_SIZE} !important; }}
+h2 {{ font-size: {H2_SIZE} !important; }}
+h3 {{ font-size: {H3_SIZE} !important; }}
+h4 {{ font-size: {H4_SIZE} !important; }}
+[data-testid="stCaptionContainer"],
+[data-testid="stCaptionContainer"] p {{ font-size: {SMALL_SIZE} !important; }}
+
 /* Page header banner */
 .syc-header {{
     background: linear-gradient(120deg, {MAROON} 0%, {MAROON_DARK} 100%);
@@ -34,8 +54,8 @@ html, body, [class*="css"], .stMarkdown, .stChatMessage {{ font-family: 'Lato', 
     border-bottom: 5px solid {NAVY};
 }}
 .syc-header .eyebrow {{ font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }}
-.syc-header h1 {{ color: #fff; font-weight: 900; font-size: 1.9rem; margin: .2rem 0 .3rem; padding: 0; }}
-.syc-header p {{ margin: 0; opacity: .92; font-size: 1rem; }}
+.syc-header h1 {{ color: #fff; font-weight: 900; font-size: {H1_SIZE} !important; margin: .2rem 0 .3rem; padding: 0; }}
+.syc-header p {{ margin: 0; opacity: .92; font-size: {TEXT_SIZE} !important; }}
 
 /* Headings */
 h2, h3 {{ color: {NAVY}; font-weight: 700; }}
@@ -50,12 +70,13 @@ h2, h3 {{ color: {NAVY}; font-weight: 700; }}
 
 /* Expanders (FAQ) */
 [data-testid="stExpander"] details {{ border-left: 4px solid {MAROON}; background: #fff; }}
+[data-testid="stExpander"] summary p {{ font-size: {TEXT_SIZE} !important; font-weight: 700; }}
 [data-testid="stExpander"] summary:hover {{ color: {MAROON}; }}
 
 /* Buttons */
 .stButton > button {{
     border-radius: 999px; border: 1px solid {MAROON}; color: {MAROON};
-    background: #fff; font-weight: 700; transition: all .15s ease;
+    background: #fff; font-weight: 700; font-size: {TEXT_SIZE}; transition: all .15s ease;
 }}
 .stButton > button:hover {{ background: {MAROON}; color: #fff; border-color: {MAROON}; }}
 
@@ -65,7 +86,7 @@ h2, h3 {{ color: {NAVY}; font-weight: 700; }}
 [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]) {{
     background: #fff; border: 1px solid #EEE5E3;
 }}
-[data-testid="stChatInput"] textarea {{ font-family: 'Lato', sans-serif; }}
+[data-testid="stChatInput"] textarea {{ font-family: 'Lato', sans-serif; font-size: {TEXT_SIZE}; }}
 
 /* Sidebar */
 [data-testid="stSidebar"] {{ border-right: 4px solid {MAROON}; }}
@@ -74,7 +95,7 @@ h2, h3 {{ color: {NAVY}; font-weight: 700; }}
 
 /* Note box */
 .syc-note {{ background: #FBF7F6; border-left: 4px solid {NAVY}; border-radius: 8px;
-    padding: .8rem 1rem; font-size: .88rem; color: #484848; margin-bottom: 1rem; }}
+    padding: .8rem 1rem; font-size: {SMALL_SIZE}; color: #484848; margin-bottom: 1rem; }}
 
 /* Section headings inside pages */
 [data-testid="stHeading"] h2, [data-testid="stHeading"] h3 {{ color: {NAVY}; }}
@@ -82,7 +103,7 @@ h2, h3 {{ color: {NAVY}; font-weight: 700; }}
 /* Footer */
 .syc-footer {{
     margin-top: 3rem; padding: 1rem 1.2rem; border-radius: 10px;
-    background: #191919; color: #B7B7B7; font-size: .8rem; line-height: 1.5;
+    background: #191919; color: #B7B7B7; font-size: {SMALL_SIZE}; line-height: 1.5;
 }}
 .syc-footer b {{ color: #fff; }}
 </style>
