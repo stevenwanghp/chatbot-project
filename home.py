@@ -81,10 +81,10 @@ def branch_title(text, colour):
 # Steps everyone goes through
 steps = [
     ("1", "Counselling", "Register on the SYC Portal and attend the Marriage Counselling Programme."),
-    ("2", "File the Originating Summons", "One spouse files the Originating Summons within 6 months."),
-    ("3", "Serve the Originating Summons", "[Add description]"),
-    ("4", "Memorandum of Defence", "[Add description]"),
-    ("5", "Mediation", "Helps both parties agree on the divorce and ancillary matters."),
+    ("2", "File the Originating Summons", "Plaintiff files the Originating Summons within 6 months."),
+    ("3", "Serve the Originating Summons", "Plantiff to serve the Originating Summons to the other party"),
+    ("4", "Memorandum of Defence", "Defendant to file the Memorandum of Defence"),
+    ("5", "Mediation", "Helps both parties agree on the divorce and ancillary matters. If all matters are agreed on, the divorce can be finalised on the same day"),
 ]
 
 cols = st.columns(len(steps))
@@ -101,11 +101,11 @@ with agree:
     with st.container(border=True):
         branch_title("✅ Agreement reached", "#2e7d32")
         arrow()
-        step("6", "Consent Hearing", "The Court reviews your agreement and grants the divorce.")
+        step("6", "Consent Hearing", "The President/ Judge reviews your agreement and grants the divorce.")
 
 with no_agree:
     with st.container(border=True):
-        branch_title("❌ No agreement", "#810E07")
+        branch_title("❌ No agreement on ALL matters", "#810E07")
         arrow()
         step("6", "Pre-Trial Conference", "The Court prepares the case for hearing.")
         arrow()
