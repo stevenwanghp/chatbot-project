@@ -5,7 +5,7 @@ Streamlit Cloud runs this file, so keep the name main.py.
 import streamlit as st
 
 pages = [
-    st.Page("home.py", title="Home", icon="🏠", default=True),
+    st.Page("pages/0_home.py", title="Home", icon="🏠", default=True),
     st.Page("pages/1_💬_Chatbot.py", title="Ask the Assistant", icon="💬"),
     st.Page("pages/3_❓_FAQs.py", title="FAQs", icon="❓"),
     st.Page("pages/4_🔗_Useful_Links.py", title="Useful Links", icon="🔗"),

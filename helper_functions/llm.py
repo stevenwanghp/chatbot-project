@@ -3,6 +3,12 @@ import tiktoken
 import streamlit as st
 from openai import OpenAI
 from dotenv import load_dotenv
+from helper_functions.config import load_config
+
+CONFIG = load_config()
+OPENAI_MODEL = CONFIG["OPENAI_MODEL"]
+TEMPERATURE = CONFIG["TEMPERATURE"]
+MAX_TOKENS = CONFIG["MAX_TOKENS"]
 
 if load_dotenv('.env'):
     # for local development
@@ -13,21 +19,23 @@ else:
 client = OpenAI(api_key=OPENAI_KEY)
 
 
-def get_completion(messages, model="gpt-4o-mini", temperature=0):
+def get_completion(messages, model=OPENAI_MODEL, temperature=TEMPERATURE):
     response = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=temperature,
+        max_tokens=MAX_TOKENS,
     )
     return response.choices[0].message.content
 
 
-def get_completion_stream(messages, model="gpt-4o-mini", temperature=0):
+def get_completion_stream(messages, model=OPENAI_MODEL, temperature=TEMPERATURE):
     """Returns a streaming generator for use with st.write_stream()."""
     stream = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=temperature,
+        max_tokens=MAX_TOKENS,
         stream=True,
     )
     for chunk in stream:
@@ -36,7 +44,7 @@ def get_completion_stream(messages, model="gpt-4o-mini", temperature=0):
             yield delta.content
 
 
-def count_tokens(text, model="gpt-4o-mini"):
+def count_tokens(text, model=OPENAI_MODEL):
     """Estimate the number of tokens in a string."""
     try:
         encoding = tiktoken.encoding_for_model(model)

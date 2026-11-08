@@ -22,3 +22,6 @@ dist/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local chat interaction logs may contain sensitive content
+logs/

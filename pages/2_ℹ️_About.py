@@ -1,6 +1,9 @@
 import streamlit as st
+from helper_functions.config import load_config
 from helper_functions.utility import check_password
 from helper_functions.ui import apply_theme, page_header, footer
+
+CONFIG = load_config()
 
 # region <--------- Streamlit Page Configuration --------->
 
@@ -19,29 +22,64 @@ if not check_password():
 
 page_header("About This App", "What this assistant does, how it works, and its limits.", "ℹ️")
 
-st.markdown("""
-### What it does
-This assistant helps people understand the **divorce process at the Syariah Court Singapore**:
-eligibility, counselling, filing, fees, reconciliation, appeals and life after divorce.
+st.markdown(f"""
+### Overview
+The SYC Divorce Process Assistant uses OpenAI's {CONFIG['OPENAI_MODEL']} model to answer
+questions about the Syariah Court divorce process. It is trained on approved content from the Syariah Court website, and is designed to provide accurate and relevant information while adhering to strict guardrails to ensure safety and compliance.
 
-### How it works
-- 📄 **Grounded answers (RAG)**: each question is matched to the most relevant pages of the official
-  Syariah Court divorce guide, and the AI answers only from those pages, citing page numbers.
-- 💬 **Conversational**: ask follow-up questions in plain language.
-- 🔒 **Password protected**: access with a shared password.
+### Scope
+This chatbot covers the **Syariah Court divorce process only**:
+1. Eligibility to file for divorce at the Syariah Court
+2. Marriage Counselling Programme
+3. Filing the Originating Summons
+4. Serving the Originating Summons
+5. Mediation
+6. Pre-Trial Conference
+7. Hearing
+
+**Out of scope**: the chatbot will politely decline and redirect:
+- Legal advice or questions about the merits of a specific case
+- Other Syariah Court services (e.g. inheritance certificates)
+- Civil court divorce matters
+- Questions unrelated to divorce
+
+### Data source
+- Approved content from the Syariah Court of Singapore website
+
+### How the chatbot works
+""")
+st.graphviz_chart("""
+digraph {
+    node [shape=box, style=rounded]
+    Q [label="User asks a question"]
+    C [label="Is it about the SYC divorce process?", shape=diamond]
+    N [label="Polite reply: I can only help with SYC divorce procedures"]
+    R [label="Find relevant SYC content"]
+    L [label="LLM answers using that content only"]
+    A [label="Show answer + sources"]
+    Q -> C
+    C -> N [label="No"]
+    C -> R [label="Yes"]
+    R -> L -> A
+}
+""")
+st.markdown("""
 
 ### Tech stack
 | Component | Tool |
 |---|---|
 | Interface | Streamlit |
-| Language model | OpenAI GPT-4o-mini |
-| Retrieval | OpenAI text-embedding-3-small + NumPy |
+| Language model | OpenAI {CONFIG['OPENAI_MODEL']} |
+| Retrieval | OpenAI {CONFIG['EMBEDDING_MODEL']} + NumPy |
+| Vector DB | Chroma |
 | PDF reading | pypdf |
 
-### Limits
-- It only knows what is in the guide. If the answer isn't there, it will say so.
-- It gives **general information, not legal advice**. Court staff can't give legal advice either,
-  so speak to a lawyer, the Legal Aid Bureau or Pro Bono SG about your own case.
+### Guardrails
+- Answers only from approved SYC content
+- Does not give legal advice; redirects to a lawyer or legal clinic if asked 
+- Shows emergency contacts if a user mentions being in danger 
+- Uses delimiters to protect against prompt injection
+- Password-protected, with a disclaimer on every page
 """)
 
 footer()
