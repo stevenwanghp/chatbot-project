@@ -70,7 +70,7 @@ st.markdown("""
 |---|---|
 | Interface | Streamlit |
 | Language model | OpenAI {CONFIG['OPENAI_MODEL']} |
-| Retrieval | OpenAI {CONFIG['EMBEDDING_MODEL']} + NumPy |
+| Retrieval | OpenAI embeddings + Chroma similarity search |
 | Vector DB | Chroma |
 | PDF reading | pypdf |
 
