@@ -49,20 +49,21 @@ streamlit run main.py
 
 ## Refresh the Knowledge Base
 
-The repository includes processed Markdown and a persistent Chroma database. To refresh the official web content and rebuild the vector store, ensure `OPENAI_API_KEY` is set in `.env`, then run:
+The repository includes processed Markdown and a persistent Chroma database. To convert PDFs in `data/`, fetch the configured official web pages, and rebuild the vector store, ensure `OPENAI_API_KEY` is set in `.env`, then run:
 
 ```bash
+python "pre-processing/pdf_to_markdown.py"
 python "pre-processing/fetch_official_pages.py"
 python "pre-processing/markdown_to_vectorstore.py"
 ```
 
-The fetcher uses the URLs allowlisted in `config.yaml`. To fetch one configured page only:
+The PDF converter scans `data/` and writes Markdown to `data_processed/` by default. It accepts a PDF file or directory as its first argument and `-o` or `--output-dir` to change the destination. The fetcher uses the URLs allowlisted in `config.yaml`. To fetch one configured page only:
 
 ```bash
 python "pre-processing/fetch_official_pages.py" --url "https://syariahcourt.gov.sg/Divorce/Overview"
 ```
 
-The indexer accepts an optional Markdown file or directory as its first argument. Run either script with `--help` to see its options.
+The indexer accepts an optional Markdown file or directory as its first argument. Run any preprocessing script with `--help` to see its options.
 
 ## Configuration
 

@@ -71,8 +71,7 @@ st.markdown("""
 | Interface | Streamlit |
 | Language model | OpenAI {CONFIG['OPENAI_MODEL']} |
 | Retrieval | OpenAI embeddings + Chroma similarity search |
-| Vector DB | Chroma |
-| PDF reading | pypdf |
+| PDF parsing to markdown | pymupdf4llm |
 
 ### Guardrails
 - Answers only from approved SYC content
