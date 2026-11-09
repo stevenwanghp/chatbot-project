@@ -63,14 +63,15 @@ digraph {
     R -> L -> A
 }
 """)
-st.markdown("""
+st.markdown(f"""
 
 ### Tech stack
 | Component | Tool |
 |---|---|
 | Interface | Streamlit |
 | Language model | OpenAI {CONFIG['OPENAI_MODEL']} |
-| Retrieval | OpenAI embeddings + Chroma similarity search |
+| Embedding model | OpenAI {CONFIG['EMBEDDING_MODEL']} |
+| Vector DB | Chroma DB |
 | PDF parsing to markdown | pymupdf4llm |
 
 ### Guardrails
