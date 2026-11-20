@@ -43,8 +43,6 @@ This chatbot covers the **Syariah Court divorce process only**:
 - Civil court divorce matters
 - Questions unrelated to divorce
 
-### Data source
-- Approved content from the Syariah Court of Singapore website
 
 ### How the chatbot works
 """)
@@ -71,8 +69,35 @@ st.markdown(f"""
 | Interface | Streamlit |
 | Language model | OpenAI {CONFIG['OPENAI_MODEL']} |
 | Embedding model | OpenAI {CONFIG['EMBEDDING_MODEL']} |
-| Vector DB | Chroma DB |
-| PDF parsing to markdown | pymupdf4llm |
+| Vector search | Chroma similarity search |
+| Keyword search | BM25 |
+| PDF parsing to markdown | pymupdf |
+
+
+### Data source
+- Approved content from the Syariah Court of Singapore website
+
+### Retrieval
+Markdown documents are processed in two stages. First,
+`MarkdownHeaderTextSplitter` divides each document at its headings and keeps the heading
+context with each section. Then `RecursiveCharacterTextSplitter` divides long sections into
+smaller chunks, targeting {CONFIG['CHUNK_SIZE']} characters with
+{CONFIG['CHUNK_OVERLAP']} characters of overlap. This combination keeps related content
+with its heading while avoiding oversized chunks; using only heading splitting could leave
+very long sections intact, while character-only splitting could separate content from its
+heading. Page and section headings are retained with each chunk to preserve context.
+
+For each question, the assistant uses a **hybrid search approach, combining vector and keyword searches**.
+It searches Chroma by vector similarity and ranks the same content with BM25 keyword search.
+Vector search can find relevant passages when a question is phrased differently from the source;
+BM25 can surface passages containing exact terms,
+such as specific procedure names. Using both helps cover semantic matches and precise
+legal vocabulary. RRF combines their rankings so neither method's score scale dominates.
+It considers up to
+{CONFIG['VECTOR_RETRIEVAL_CANDIDATES']} candidates from each method, then combines their
+rankings using reciprocal rank fusion (RRF, rank constant
+{CONFIG['RRF_RANK_CONSTANT']}). The top {CONFIG['RETRIEVAL_TOP_K']} combined results are
+provided to the language model as its answer context.
 
 ### Guardrails
 - Answers only from approved SYC content

@@ -107,7 +107,7 @@ if user_input:
                         source_label = f"[{s['source']}]({s['source_url']})"
                     else:
                         source_label = s["source"]
-                    st.markdown(f"**{source_label}** · relevance {s['score']:.2f}")
+                    st.markdown(f"**{source_label}** · hybrid {s['hybrid_score']:.3f}")
                     st.caption(s["text"][:300] + "...")
     except Exception as error:
         error_details = {

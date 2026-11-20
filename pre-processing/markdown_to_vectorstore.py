@@ -11,6 +11,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import yaml
 from langchain_core.documents import Document
+from langchain_text_splitters import MarkdownHeaderTextSplitter
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -19,6 +20,14 @@ from helper_functions.config import load_config
 from helper_functions.vectorstore import create_text_splitter, create_vector_store
 
 CONFIG = load_config()
+MARKDOWN_HEADERS = [
+    ("#", "h1"),
+    ("##", "h2"),
+    ("###", "h3"),
+    ("####", "h4"),
+    ("#####", "h5"),
+    ("######", "h6"),
+]
 
 
 def find_markdown_files(source: Path) -> list[Path]:
@@ -50,6 +59,50 @@ def load_markdown_document(path: Path, source_name: str) -> Document | None:
             metadata.update(parsed_metadata)
         text = text.strip()
     return Document(page_content=text, metadata=metadata)
+
+
+def split_markdown_document(document: Document) -> list[Document]:
+    sections = MarkdownHeaderTextSplitter(
+        headers_to_split_on=MARKDOWN_HEADERS,
+        strip_headers=False,
+    ).split_text(document.page_content)
+    chunks = []
+    text_splitter = create_text_splitter()
+
+    for section in sections:
+        section.metadata = {**document.metadata, **section.metadata}
+        root_heading = next(
+            (
+                section.metadata[name]
+                for level, name in enumerate(
+                    (name for _, name in MARKDOWN_HEADERS),
+                    start=1,
+                )
+                if level <= 2 and section.metadata.get(name)
+            ),
+            None,
+        )
+        leaf_heading = next(
+            (
+                section.metadata[name]
+                for _, name in reversed(MARKDOWN_HEADERS)
+                if section.metadata.get(name)
+            ),
+            None,
+        )
+        section_headings = [heading for heading in (root_heading, leaf_heading) if heading]
+        if len(section_headings) == 2 and section_headings[0] == section_headings[1]:
+            section_headings.pop()
+        section_path = " > ".join(section_headings)
+        if section_path:
+            section.metadata["section_path"] = section_path
+
+        section_chunks = text_splitter.split_documents([section])
+        for chunk in section_chunks:
+            if section_path:
+                chunk.page_content = f"{section_path}\n\n{chunk.page_content}"
+            chunks.append(chunk)
+    return chunks
 
 
 def main() -> int:
@@ -94,7 +147,7 @@ def main() -> int:
         if document is None:
             print(f"Skipping empty file: {path}", file=sys.stderr)
             continue
-        chunks = create_text_splitter().split_documents([document])
+        chunks = split_markdown_document(document)
         for index, chunk in enumerate(chunks):
             chunk.metadata["chunk_index"] = index
         documents.extend(chunks)

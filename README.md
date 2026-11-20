@@ -4,15 +4,15 @@ A Streamlit retrieval-augmented chatbot that answers general questions about the
 
 ## Features
 
-- Answers questions using retrieved official Syariah Court content.
-- Shows source titles, links, and relevance scores with each answer.
-- Filters retrieval results using the relevance threshold in `config.yaml`.
+- Answers questions using hybrid vector and BM25 keyword retrieval over official Syariah Court content.
+- Shows source titles, links, and the contributing retrieval signals with each answer.
+- Filters vector candidates using the relevance threshold in `config.yaml` and fuses results by rank.
 - Includes FAQs, useful links, and app methodology pages.
 - Logs chat queries, retrieved chunks, assistant responses, and errors locally.
 
 ## Requirements
 
-- Python 3.10 or later
+- Python 3.11 or later
 - An OpenAI API key with access to the configured chat and embedding models
 
 ## Setup
@@ -63,11 +63,18 @@ The PDF converter scans `data/` and writes Markdown to `data_processed/` by defa
 python "pre-processing/fetch_official_pages.py" --url "https://syariahcourt.gov.sg/Divorce/Overview"
 ```
 
+PDF conversion uses PyMuPDF's layout-aware Markdown extraction, preserves page boundaries, and reports pages where extracted Markdown omits a significant amount of native PDF text. For scanned or image-based text, install an OCR engine (for example, `pip install rapidocr`) and run the converter with `--ocr`:
+
+```bash
+pip install rapidocr
+python "pre-processing/pdf_to_markdown.py" --ocr
+```
+
 The indexer accepts an optional Markdown file or directory as its first argument. Run any preprocessing script with `--help` to see its options.
 
 ## Configuration
 
-Application and ingestion settings are in `config.yaml`, including chat and embedding models, system prompt, generation parameters, chunking, vector-store location, source URLs, retrieval count, minimum relevance score, and log rotation. The Streamlit visual theme is configured separately in `.streamlit/config.toml`.
+Application and ingestion settings are in `config.yaml`, including chat and embedding models, system prompt, generation parameters, chunking, vector-store location, source URLs, final retrieval count, vector and keyword candidate counts, and log rotation. The Streamlit visual theme is configured separately in `.streamlit/config.toml`.
 
 ## Logs and Privacy
 

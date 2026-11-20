@@ -24,7 +24,9 @@ PROCESSED_DATA_DIRECTORY: "data_processed"
 VECTOR_STORE_DIRECTORY: "chroma_db"
 VECTOR_STORE_COLLECTION: "syariah_court_guides"
 RETRIEVAL_TOP_K: 5
-MIN_RELEVANCE_SCORE: 0.5
+VECTOR_RETRIEVAL_CANDIDATES: 10
+KEYWORD_RETRIEVAL_CANDIDATES: 10
+RRF_RANK_CONSTANT: 60
 WEB_SOURCE_URLS:
   - "https://syariahcourt.gov.sg/Divorce/Overview"
   - "https://syariahcourt.gov.sg/Divorce/Process-Pre-Divorce"
